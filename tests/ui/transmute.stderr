@@ -116,6 +116,38 @@ error: transmute from a type (`std::vec::Vec<i32>`) to itself
 LL |         let _: Vec<i32> = my_transmute(my_vec());
    |                           ^^^^^^^^^^^^^^^^^^^^^^
 
+error: transmute from `std::vec::Vec<i32>` to `std::vec::Vec<u32>` with mismatched layout is unsound
+  --> $DIR/transmute.rs:83:27
+   |
+LL |         let _: Vec<u32> = core::intrinsics::transmute(my_vec());
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[deny(clippy::unsound_collection_transmute)]` on by default
+
+error: transmute from `std::vec::Vec<i32>` to `std::vec::Vec<u32>` with mismatched layout is unsound
+  --> $DIR/transmute.rs:84:27
+   |
+LL |         let _: Vec<u32> = core::mem::transmute(my_vec());
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: transmute from `std::vec::Vec<i32>` to `std::vec::Vec<u32>` with mismatched layout is unsound
+  --> $DIR/transmute.rs:85:27
+   |
+LL |         let _: Vec<u32> = std::intrinsics::transmute(my_vec());
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: transmute from `std::vec::Vec<i32>` to `std::vec::Vec<u32>` with mismatched layout is unsound
+  --> $DIR/transmute.rs:86:27
+   |
+LL |         let _: Vec<u32> = std::mem::transmute(my_vec());
+   |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: transmute from `std::vec::Vec<i32>` to `std::vec::Vec<u32>` with mismatched layout is unsound
+  --> $DIR/transmute.rs:87:27
+   |
+LL |         let _: Vec<u32> = my_transmute(my_vec());
+   |                           ^^^^^^^^^^^^^^^^^^^^^^
+
 error: transmute from an integer to a pointer
   --> $DIR/transmute.rs:89:31
    |
@@ -242,5 +274,5 @@ error: transmute from a reference to a reference
 LL |         let _: &GenericParam<f32> = std::mem::transmute(&GenericParam { t: 1u32 });
    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try: `&*(&GenericParam { t: 1u32 } as *const GenericParam<u32> as *const GenericParam<f32>)`
 
-error: aborting due to 38 previous errors
+error: aborting due to 43 previous errors
 
